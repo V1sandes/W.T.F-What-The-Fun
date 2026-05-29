@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W.T.F. — Каталог</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🎮 W.T.F.</div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Поиск игр...">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Каталог</a></li>
+            <li><a href="library.html">Библиотека</a></li>
+            <li><a href="wishlist.html">Избранное</a></li>
+            <li><a href="cart.html">🛒 Корзина <span id="cartCount">0</span></a></li>
+        </ul>
+    </nav>
+    <main class="container">
+        <div class="abbreviation-info">
+            <span class="wtf-badge">W.T.F.</span> = <span class="wtf-mean">What The Fun</span>
+            <span class="wtf-note">(да, вы правильно прочитали)</span>
+        </div>
+        <div class="filters">
+            <select id="genreFilter">
+                <option value="all">Все жанры</option>
+                <option value="RPG">RPG</option>
+                <option value="Стелс-экшен">Стелс-экшен</option>
+                <option value="Инди">Инди</option>
+                <option value="Экшен">Экшен</option>
+                <option value="Стратегия">Стратегия</option>
+            </select>
+        </div>
+        <div id="gamesGrid" class="games-grid"></div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

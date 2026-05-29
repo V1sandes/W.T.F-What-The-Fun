@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W.T.F. — Корзина</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🎮 W.T.F.</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Каталог</a></li>
+            <li><a href="library.html">Библиотека</a></li>
+            <li><a href="wishlist.html">Избранное</a></li>
+            <li><a href="cart.html" class="active">🛒 Корзина <span id="cartCount">0</span></a></li>
+        </ul>
+    </nav>
+    <main class="container">
+        <h1>🛒 Корзина</h1>
+        <div id="cartItems" class="cart-list"></div>
+        <div class="cart-summary">
+            <p>Итого: <span id="totalPrice">0</span> ₽</p>
+            <button id="checkoutBtn">✅ Оформить заказ</button>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

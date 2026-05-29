@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W.T.F. — Карточка игры</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🎮 W.T.F.</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Каталог</a></li>
+            <li><a href="library.html">Библиотека</a></li>
+            <li><a href="wishlist.html">Избранное</a></li>
+            <li><a href="cart.html">🛒 Корзина <span id="cartCount">0</span></a></li>
+        </ul>
+    </nav>
+    <main class="container" id="gameDetailContainer">
+        <a href="index.html" class="back-link">← Назад в каталог</a>
+        <div class="detail-card">
+            <h1 id="gameTitle"></h1>
+            <img id="gameImage" src="" alt="">
+            <p id="gameDescription" class="game-description"></p>
+            <span id="gameGenre" class="game-genre"></span>
+            <p id="gamePrice" class="price"></p>
+            <div class="button-group">
+                <button id="addToCartBtn">🛒 В корзину</button>
+                <button id="addToWishlistBtn">❤️ В избранное</button>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
