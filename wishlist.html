@@ -14,12 +14,37 @@
             <li><a href="library.html">Библиотека</a></li>
             <li><a href="wishlist.html" class="active">Избранное</a></li>
             <li><a href="cart.html">🛒 Корзина <span id="cartCount">0</span></a></li>
+            <li><a href="#" id="loginBtn">Вход</a></li>
         </ul>
     </nav>
     <main class="container">
         <h1>❤️ Избранное</h1>
         <div id="wishlistGrid" class="games-grid"></div>
     </main>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Вход в аккаунт</h2>
+            <p class="modal-question">Выберите платформу для входа:</p>
+            <div class="platform-slider">
+                <div class="platform-option" data-platform="steam">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/steam.svg" alt="Steam">
+                    <span>Steam</span>
+                </div>
+                <div class="platform-option" data-platform="gog">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gogdotcom.svg" alt="GOG">
+                    <span>GOG</span>
+                </div>
+                <div class="platform-option" data-platform="epic">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/epicgames.svg" alt="Epic Games">
+                    <span>Epic Games</span>
+                </div>
+            </div>
+            <button id="confirmLoginBtn" class="confirm-login-btn">🚪 Войти</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
