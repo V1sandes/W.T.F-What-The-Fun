@@ -176,7 +176,7 @@ function renderLibraryPage() {
 function renderWishlistPage() {
     const wishlist = JSON.parse(localStorage.getItem('wishlist'));
     const wishlistGames = games.filter(g => wishlist.includes(g.id));
-    renderGamesGrid('wishlistGrid', wishlistGames, false, true, false);
+    renderGamesGrid('wishlistGrid', wishlistGames, false, false, false);
 }
 
 function renderCartPage() {
