@@ -2,7 +2,7 @@ const games = [
     { id: 1, title: "Cyberpunk 2077", genre: "RPG", price: 1999, image: "images/Cyberpunk.jpeg", description: "Футуристический RPG от первого лица в мире наёмников. Исследуйте огромный открытый мир Найт-Сити, выполняйте задания и становитесь легендой." },
     { id: 2, title: "Metal Gear Solid Delta: Snake Eater", genre: "Стелс-экшен", price: 2999, image: "images/MetalGearSolid.jpeg", description: "Ремейк культовой стелс-оперы в джунглях. Выживание, скрытность и напряжённый сюжет во времена Холодной войны." },
     { id: 3, title: "Hades", genre: "Инди", price: 599, image: "images/Hades.jpeg", description: "Roguelike в мире греческой мифологии. Пробивайтесь из подземного мира, используя дары олимпийских богов." },
-    { id: 4, title: "Doom Eternal", genre: "Экшен", price: 1499, image: "images/Doom.jpeg", description: "Динамичный шутер от первого лица. Уничтожайте орды демонов с помощью мощнейшего арсенала." },
+    { id: 4, title: "Doom", genre: "Экшен", price: 1499, image: "images/Doom.jpeg", description: "Динамичный шутер от первого лица. Уничтожайте орды демонов с помощью мощнейшего арсенала." },
     { id: 5, title: "The Witcher 3", genre: "RPG", price: 1299, image: "images/witcher.jpeg", description: "Открытый мир и охота на чудовищ. Станьте ведьмаком Геральтом и спасите свою приёмную дочь." },
     { id: 6, title: "Dark Souls II", genre: "RPG", price: 9999, image: "images/ds2.jpeg", description: "Суровая ролевая игра с высокой сложностью. Исследуйте мрачный мир Дранглейк и сражайтесь с могущественными боссами." },
     { id: 7, title: "Elden Ring", genre: "RPG", price: 2999, image: "images/eldnering.jpeg", description: "Грандиозный экшен-RPG от создателей Dark Souls. Исследуйте Междуземье в поисках Элденского кольца." },
