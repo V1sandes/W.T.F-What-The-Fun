@@ -2,7 +2,7 @@ const games = [
     { id: 1, title: "Cyberpunk 2077", genre: "RPG", price: 1999, image: "images/Cyberpunk.jpeg", description: "Футуристический RPG от первого лица в мире наёмников. Исследуйте огромный открытый мир Найт-Сити, выполняйте задания и становитесь легендой." },
     { id: 2, title: "Metal Gear Solid Delta: Snake Eater", genre: "Стелс-экшен", price: 2999, image: "images/MetalGearSolid.jpeg", description: "Ремейк культовой стелс-оперы в джунглях. Выживание, скрытность и напряжённый сюжет во времена Холодной войны." },
     { id: 3, title: "Hades", genre: "Инди", price: 599, image: "images/Hades.jpeg", description: "Roguelike в мире греческой мифологии. Пробивайтесь из подземного мира, используя дары олимпийских богов." },
-    { id: 4, title: "Doom", genre: "Экшен", price: 1499, image: "images/Doom.jpeg", description: "Динамичный шутер от первого лица. Уничтожайте орды демонов с помощью мощнейшего арсенала." },
+    { id: 4, title: "Doom Eternal", genre: "Экшен", price: 1499, image: "images/Doom.jpeg", description: "Динамичный шутер от первого лица. Уничтожайте орды демонов с помощью мощнейшего арсенала." },
     { id: 5, title: "The Witcher 3", genre: "RPG", price: 1299, image: "images/witcher.jpeg", description: "Открытый мир и охота на чудовищ. Станьте ведьмаком Геральтом и спасите свою приёмную дочь." },
     { id: 6, title: "Dark Souls II", genre: "RPG", price: 9999, image: "images/ds2.jpeg", description: "Суровая ролевая игра с высокой сложностью. Исследуйте мрачный мир Дранглейк и сражайтесь с могущественными боссами." },
     { id: 7, title: "Elden Ring", genre: "RPG", price: 2999, image: "images/eldenring.jpeg", description: "Грандиозный экшен-RPG от создателей Dark Souls. Исследуйте Междуземье в поисках Элденского кольца." },
@@ -23,7 +23,14 @@ function updateCartCount() {
 }
 
 function addToCart(gameId) {
+    const library = JSON.parse(localStorage.getItem('library'));
     const cart = JSON.parse(localStorage.getItem('cart'));
+    
+    if (library.includes(gameId)) {
+        alert('❌ Эта игра уже есть в вашей библиотеке!');
+        return;
+    }
+    
     if (!cart.includes(gameId)) {
         cart.push(gameId);
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -56,16 +63,27 @@ function removeFromCart(gameId) {
 
 function buyGame(gameId) {
     let library = JSON.parse(localStorage.getItem('library'));
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    
+    if (library.includes(gameId)) {
+        alert('❌ Игра уже есть в библиотеке!');
+        renderCartPage();
+        return;
+    }
+    
     if (!library.includes(gameId)) {
         library.push(gameId);
         localStorage.setItem('library', JSON.stringify(library));
     }
-    let cart = JSON.parse(localStorage.getItem('cart'));
     cart = cart.filter(id => id !== gameId);
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartCount();
     alert('🎉 Игра куплена и добавлена в библиотеку!');
     if (window.location.pathname.includes('cart.html')) renderCartPage();
+    if (window.location.pathname.includes('gamepage.html')) {
+        const backLink = document.querySelector('.back-link');
+        if (backLink) backLink.click();
+    }
 }
 
 function renderGamesGrid(containerId, gameList, showButtons = true, showPrice = true) {
@@ -81,7 +99,7 @@ function renderGamesGrid(containerId, gameList, showButtons = true, showPrice = 
         const freeBadge = g.price === 0 && showPrice ? '<span class="free-badge">Бесплатно</span>' : '';
         html += '<div class="game-card" data-id="' + g.id + '">';
         html += freeBadge;
-        html += '<img src="' + g.image + '" alt="' + g.title + '" onerror="this.src=\'https://via.placeholder.com/300x150?text=No+Image\'">';
+        html += '<img src="' + g.image + '" alt="' + g.title + '" onerror="this.src=\'https://via.placeholder.com/300x150?text=' + encodeURIComponent(g.title) + '\'">';
         html += '<h3>' + g.title + '</h3>';
         if (showPrice) html += '<p class="price">' + (g.price === 0 ? 'Бесплатно' : g.price + ' ₽') + '</p>';
         if (showButtons) {
@@ -144,6 +162,7 @@ function renderCartPage() {
     const container = document.getElementById('cartItems');
     if (!container) return;
     const cart = JSON.parse(localStorage.getItem('cart'));
+    const library = JSON.parse(localStorage.getItem('library'));
     let total = 0;
     if (cart.length === 0) {
         container.innerHTML = '<div class="empty-message">🛒 Корзина пуста</div>';
@@ -155,12 +174,17 @@ function renderCartPage() {
         const game = games.find(g => g.id === cart[i]);
         if (game) {
             total += game.price;
+            const isInLibrary = library.includes(game.id);
             html += '<div class="cart-item">';
             html += '<span><strong>' + game.title + '</strong></span>';
             html += '<span>' + (game.price === 0 ? 'Бесплатно' : game.price + ' ₽') + '</span>';
             html += '<div>';
             html += '<button class="remove-from-cart" data-id="' + game.id + '">🗑 Удалить</button>';
-            html += '<button class="buy-now" data-id="' + game.id + '">💳 Купить</button>';
+            if (!isInLibrary) {
+                html += '<button class="buy-now" data-id="' + game.id + '">💳 Купить</button>';
+            } else {
+                html += '<button class="buy-now-disabled" disabled style="background:#555; cursor:not-allowed;">❌ Уже в библиотеке</button>';
+            }
             html += '</div></div>';
         }
     }
@@ -178,6 +202,9 @@ function renderGameDetail() {
     const urlParams = new URLSearchParams(window.location.search);
     const gameId = parseInt(urlParams.get('id'));
     const game = games.find(g => g.id === gameId);
+    const library = JSON.parse(localStorage.getItem('library'));
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    
     if (!game) {
         document.querySelector('.detail-card').innerHTML = '<h2>Игра не найдена</h2>';
         return;
@@ -187,8 +214,28 @@ function renderGameDetail() {
     document.getElementById('gameDescription').innerText = game.description;
     document.getElementById('gameGenre').innerText = '🎮 ' + game.genre;
     document.getElementById('gamePrice').innerText = game.price === 0 ? 'Бесплатно' : game.price + ' ₽';
-    document.getElementById('addToCartBtn').onclick = () => addToCart(game.id);
-    document.getElementById('addToWishlistBtn').onclick = () => addToWishlist(game.id);
+    
+    const addToCartBtn = document.getElementById('addToCartBtn');
+    const addToWishlistBtn = document.getElementById('addToWishlistBtn');
+    
+    if (library.includes(game.id)) {
+        addToCartBtn.disabled = true;
+        addToCartBtn.style.background = '#555';
+        addToCartBtn.style.cursor = 'not-allowed';
+        addToCartBtn.innerText = '❌ Уже в библиотеке';
+    } else if (cart.includes(game.id)) {
+        addToCartBtn.disabled = true;
+        addToCartBtn.style.background = '#555';
+        addToCartBtn.style.cursor = 'not-allowed';
+        addToCartBtn.innerText = '⚠️ Уже в корзине';
+    } else {
+        addToCartBtn.disabled = false;
+        addToCartBtn.style.background = 'linear-gradient(135deg, #ff2d55, #ff6b6b)';
+        addToCartBtn.innerText = '🛒 В корзину';
+        addToCartBtn.onclick = () => addToCart(game.id);
+    }
+    
+    addToWishlistBtn.onclick = () => addToWishlist(game.id);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
