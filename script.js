@@ -170,7 +170,7 @@ function renderCatalogPage() {
 function renderLibraryPage() {
     const library = JSON.parse(localStorage.getItem('library'));
     const ownedGames = games.filter(g => library.includes(g.id));
-    renderGamesGrid('libraryGrid', ownedGames, false, false, true);
+    renderGamesGrid('libraryGrid', ownedGames, false, false, false);
 }
 
 function renderWishlistPage() {
