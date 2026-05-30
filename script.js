@@ -142,7 +142,7 @@ function renderGamesGrid(containerId, gameList, showButtons = true, showPrice = 
             html += '</div>';
         }
         if (showPlayButton) {
-            html += '<button class="play-btn" data-id="' + g.id + '">🎮 Играть</button>';
+            html += '<button class="play-btn" data-id="' + g.id + '">Играть</button>';
         }
         html += '</div>';
     }
@@ -226,11 +226,11 @@ function renderCartPage() {
             html += '<span><strong>' + game.title + '</strong></span>';
             html += '<span>' + (game.price === 0 ? 'Бесплатно' : game.price + ' ₽') + '</span>';
             html += '<div>';
-            html += '<button class="remove-from-cart" data-id="' + game.id + '">🗑 Удалить</button>';
+            html += '<button class="remove-from-cart" data-id="' + game.id + '">Удалить</button>';
             if (!isInLibrary) {
-                html += '<button class="buy-now" data-id="' + game.id + '">💳 Купить</button>';
+                html += '<button class="buy-now" data-id="' + game.id + '">Купить</button>';
             } else {
-                html += '<button class="buy-now-disabled" disabled style="background:#555; cursor:not-allowed;">❌ Уже в библиотеке</button>';
+                html += '<button class="buy-now-disabled" disabled style="background:#555; cursor:not-allowed;">Уже в библиотеке</button>';
             }
             html += '</div></div>';
         }
