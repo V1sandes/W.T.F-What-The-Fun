@@ -12,7 +12,9 @@ const games = [
     { id: 11, title: "Hitman 3", genre: "Стелс-экшен", price: 1999, image: "images/hitman3.jpg", description: "Станьте агентом 47 и выполняйте контракты по всему миру. Маскировка, отвлечения, скрытные убийства." },
     { id: 12, title: "Hollow Knight", genre: "Инди", price: 499, image: "images/hollowknight.jpg", description: "Атмосферный Metroidvania в подземном царстве насекомых. Исследуйте, сражайтесь с боссами и раскрывайте тайны." },
     { id: 13, title: "Sekiro: Shadows Die Twice", genre: "Экшен", price: 2999, image: "images/sekiro.jpg", description: "Самурайский экшен от создателей Dark Souls. Напряжённые бои на мечах, протезы-гаджеты и исследование феодальной Японии." },
-    { id: 14, title: "Civilization VI", genre: "Стратегия", price: 999, image: "images/civilization6.jpg", description: "Пошаговая стратегия по построению империи. Ведите свою цивилизацию от каменного века до покорения космоса." }
+    { id: 14, title: "Civilization VI", genre: "Стратегия", price: 999, image: "images/civilization6.jpg", description: "Пошаговая стратегия по построению империи. Ведите свою цивилизацию от каменного века до покорения космоса." },
+    { id: 15, title: "Starfield", genre: "RPG", price: 2999, image: "images/starfield.jpg", description: "Космическая RPG от Bethesda. Исследуйте тысячи планет, стройте корабли и открывайте тайны галактики." },
+    { id: 16, title: "Ghost of Tsushima", genre: "Экшен", price: 2499, image: "images/ghostoftsushima.jpg", description: "Самурайский экшен в открытом мире. Защитите остров Цусима от монгольского нашествия, используя путь самурая или призрака." }
 ];
 
 function initStorage() {
