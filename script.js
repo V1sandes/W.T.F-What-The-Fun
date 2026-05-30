@@ -86,6 +86,14 @@ function addToWishlist(gameId) {
     }
 }
 
+function removeFromWishlist(gameId) {
+    let wishlist = JSON.parse(localStorage.getItem('wishlist'));
+    wishlist = wishlist.filter(id => id !== gameId);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    alert('Игра удалена из избранного');
+    if (window.location.pathname.includes('wishlist.html')) renderWishlistPage();
+}
+
 function removeFromCart(gameId) {
     let cart = JSON.parse(localStorage.getItem('cart'));
     cart = cart.filter(id => id !== gameId);
@@ -119,7 +127,7 @@ function buyGame(gameId) {
     }
 }
 
-function renderGamesGrid(containerId, gameList, showButtons = true, showPrice = true, showPlayButton = false) {
+function renderGamesGrid(containerId, gameList, showButtons = true, showPrice = true, showPlayButton = false, showRemoveButton = false) {
     const container = document.getElementById(containerId);
     if (!container) return;
     if (gameList.length === 0) {
@@ -138,11 +146,14 @@ function renderGamesGrid(containerId, gameList, showButtons = true, showPrice = 
         if (showButtons) {
             html += '<div class="button-group">';
             html += '<button class="add-to-cart-btn" data-id="' + g.id + '">В корзину</button>';
-            html += '<button class="add-to-wishlist-btn" data-id="' + g.id + '">❤️</button>';
+            html += '<button class="add-to-wishlist-btn" data-id="' + g.id + '">В избранное</button>';
             html += '</div>';
         }
         if (showPlayButton) {
             html += '<button class="play-btn" data-id="' + g.id + '">Играть</button>';
+        }
+        if (showRemoveButton) {
+            html += '<button class="remove-from-wishlist-btn" data-id="' + g.id + '">Удалить из избранного</button>';
         }
         html += '</div>';
     }
@@ -173,6 +184,15 @@ function renderGamesGrid(containerId, gameList, showButtons = true, showPrice = 
         });
     }
     
+    if (showRemoveButton) {
+        document.querySelectorAll('.remove-from-wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                removeFromWishlist(parseInt(btn.dataset.id));
+            });
+        });
+    }
+    
     document.querySelectorAll('.game-card').forEach(card => {
         card.addEventListener('click', (e) => {
             if (e.target.tagName === 'BUTTON') return;
@@ -190,19 +210,19 @@ function renderCatalogPage() {
         const matchesGenre = genre === 'all' || game.genre === genre;
         return matchesSearch && matchesGenre;
     });
-    renderGamesGrid('gamesGrid', filtered, true, true, false);
+    renderGamesGrid('gamesGrid', filtered, true, true, false, false);
 }
 
 function renderLibraryPage() {
     const library = JSON.parse(localStorage.getItem('library'));
     const ownedGames = games.filter(g => library.includes(g.id));
-    renderGamesGrid('libraryGrid', ownedGames, false, false, false);
+    renderGamesGrid('libraryGrid', ownedGames, false, false, false, false);
 }
 
 function renderWishlistPage() {
     const wishlist = JSON.parse(localStorage.getItem('wishlist'));
     const wishlistGames = games.filter(g => wishlist.includes(g.id));
-    renderGamesGrid('wishlistGrid', wishlistGames, false, false, false);
+    renderGamesGrid('wishlistGrid', wishlistGames, false, true, false, true);
 }
 
 function renderCartPage() {
@@ -260,7 +280,7 @@ function renderGameDetail() {
     document.getElementById('gameTitle').innerText = game.title;
     document.getElementById('gameImage').src = game.image;
     document.getElementById('gameDescription').innerText = game.description;
-    document.getElementById('gameGenre').innerText = ' ' + game.genre;
+    document.getElementById('gameGenre').innerText = game.genre;
     document.getElementById('gamePrice').innerText = game.price === 0 ? 'Бесплатно' : game.price + ' ₽';
     
     const reqContainer = document.getElementById('requirementsContent');
