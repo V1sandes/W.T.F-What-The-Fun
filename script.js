@@ -8,11 +8,11 @@ const games = [
     { id: 7, title: "Elden Ring", genre: "RPG", price: 2999, image: "images/eldenring.jpeg", description: "Грандиозный экшен-RPG от создателей Dark Souls. Исследуйте Междуземье в поисках Элденского кольца." },
     { id: 8, title: "Весёлая ферма", genre: "Инди", price: 299, image: "images/farm.jpeg", description: "Симулятор фермы с уютной атмосферой. Выращивайте урожай, ухаживайте за животными и общайтесь с соседями." },
     { id: 9, title: "Dota 2", genre: "Стратегия", price: 0, image: "images/Dota 2.jpeg", description: "Легендарная MOBA с миллионами игроков. Бесплатно! Сражайтесь в команде 5х5 и уничтожьте древний трон врага." },
-    { id: 10, title: "Baldur's Gate 3", genre: "RPG", price: 2999, image: "https://image.api.playstation.com/vulcan/ap/rnd/202207/1210/4xJ8XB3bi3JvsE0TyZ5AeZgX.png", description: "Эпическая RPG по мотивам Dungeons & Dragons. Создайте своего персонажа и влияйте на ход сюжета сотнями способов." },
-    { id: 11, title: "Hitman 3", genre: "Стелс-экшен", price: 1999, image: "https://image.api.playstation.com/vulcan/ap/rnd/202010/2619/1f9XkF3qZkQ3xY2bR2vQpL.png", description: "Станьте агентом 47 и выполняйте контракты по всему миру. Маскировка, отвлечения, скрытные убийства." },
-    { id: 12, title: "Hollow Knight", genre: "Инди", price: 499, image: "https://image.api.playstation.com/vulcan/ap/rnd/202010/2619/1f9XkF3qZkQ3xY2bR2vQpL.png", description: "Атмосферный Metroidvania в подземном царстве насекомых. Исследуйте, сражайтесь с боссами и раскрывайте тайны." },
-    { id: 13, title: "Sekiro: Shadows Die Twice", genre: "Экшен", price: 2999, image: "https://image.api.playstation.com/vulcan/ap/rnd/202010/2619/1f9XkF3qZkQ3xY2bR2vQpL.png", description: "Самурайский экшен от создателей Dark Souls. Напряжённые бои на мечах, протезы-гаджеты и исследование феодальной Японии." },
-    { id: 14, title: "Sid Meier's Civilization VI", genre: "Стратегия", price: 999, image: "https://image.api.playstation.com/vulcan/ap/rnd/202010/2619/1f9XkF3qZkQ3xY2bR2vQpL.png", description: "Пошаговая стратегия по построению империи. Ведите свою цивилизацию от каменного века до покорения космоса." }
+    { id: 10, title: "Baldur's Gate 3", genre: "RPG", price: 2999, image: "images/baldursgate3.jpg", description: "Эпическая RPG по мотивам Dungeons & Dragons. Создайте своего персонажа и влияйте на ход сюжета сотнями способов." },
+    { id: 11, title: "Hitman 3", genre: "Стелс-экшен", price: 1999, image: "images/hitman3.jpg", description: "Станьте агентом 47 и выполняйте контракты по всему миру. Маскировка, отвлечения, скрытные убийства." },
+    { id: 12, title: "Hollow Knight", genre: "Инди", price: 499, image: "images/hollowknight.jpg", description: "Атмосферный Metroidvania в подземном царстве насекомых. Исследуйте, сражайтесь с боссами и раскрывайте тайны." },
+    { id: 13, title: "Sekiro: Shadows Die Twice", genre: "Экшен", price: 2999, image: "images/sekiro.jpg", description: "Самурайский экшен от создателей Dark Souls. Напряжённые бои на мечах, протезы-гаджеты и исследование феодальной Японии." },
+    { id: 14, title: "Civilization VI", genre: "Стратегия", price: 999, image: "images/civilization6.jpg", description: "Пошаговая стратегия по построению империи. Ведите свою цивилизацию от каменного века до покорения космоса." }
 ];
 
 function initStorage() {
