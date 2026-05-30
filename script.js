@@ -291,51 +291,54 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     if (document.getElementById('gameDetailContainer')) renderGameDetail();
+
+    // Модальное окно входа
+    const modal = document.getElementById('loginModal');
+    const loginBtn = document.getElementById('loginBtn');
+    const closeModal = document.querySelector('.close-modal');
+    const confirmBtn = document.getElementById('confirmLoginBtn');
+    let selectedPlatform = null;
+
+    if (loginBtn) {
+        loginBtn.onclick = (e) => {
+            e.preventDefault();
+            if (modal) modal.style.display = 'flex';
+        };
+    }
+
+    if (closeModal) {
+        closeModal.onclick = () => {
+            if (modal) modal.style.display = 'none';
+        };
+    }
+
+    window.onclick = (e) => {
+        if (e.target === modal) modal.style.display = 'none';
+    };
+
+    const platformOptions = document.querySelectorAll('.platform-option');
+    platformOptions.forEach(opt => {
+        opt.onclick = () => {
+            platformOptions.forEach(o => o.classList.remove('selected'));
+            opt.classList.add('selected');
+            selectedPlatform = opt.dataset.platform;
+        };
+    });
+
+    if (confirmBtn) {
+        confirmBtn.onclick = () => {
+            if (selectedPlatform) {
+                let platformName = {
+                    'steam': 'Steam',
+                    'gog': 'GOG',
+                    'epic': 'Epic Games'
+                }[selectedPlatform];
+                alert('✅ Вы вошли в аккаунт ' + platformName + '!');
+                modal.style.display = 'none';
+                if (loginBtn) loginBtn.style.display = 'none';
+            } else {
+                alert('⚠️ Выберите платформу для входа');
+            }
+        };
+    }
 });
-const modal = document.getElementById('loginModal');
-const loginBtn = document.getElementById('loginBtn');
-const closeModal = document.querySelector('.close-modal');
-const confirmBtn = document.getElementById('confirmLoginBtn');
-let selectedPlatform = null;
-
-if (loginBtn) {
-    loginBtn.onclick = (e) => {
-        e.preventDefault();
-        if (modal) modal.style.display = 'flex';
-    };
-}
-
-if (closeModal) {
-    closeModal.onclick = () => {
-        if (modal) modal.style.display = 'none';
-    };
-}
-
-window.onclick = (e) => {
-    if (e.target === modal) modal.style.display = 'none';
-};
-
-document.querySelectorAll('.platform-option').forEach(opt => {
-    opt.onclick = () => {
-        document.querySelectorAll('.platform-option').forEach(o => o.classList.remove('selected'));
-        opt.classList.add('selected');
-        selectedPlatform = opt.dataset.platform;
-    };
-});
-
-if (confirmBtn) {
-    confirmBtn.onclick = () => {
-        if (selectedPlatform) {
-            let platformName = {
-                'steam': 'Steam',
-                'gog': 'GOG',
-                'epic': 'Epic Games'
-            }[selectedPlatform];
-            alert('✅ Вы вошли в аккаунт ' + platformName + '!');
-            modal.style.display = 'none';
-            if (loginBtn) loginBtn.style.display = 'none';
-        } else {
-            alert('⚠️ Выберите платформу для входа');
-        }
-    };
-}
