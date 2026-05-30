@@ -287,6 +287,117 @@ body {
     color: #888;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 14, 26, 0.95);
+    backdrop-filter: blur(12px);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #1a1f2e, #151a28);
+    border-radius: 24px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    border: 1px solid rgba(255, 107, 74, 0.4);
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #ff6b4a;
+}
+
+.modal-content h2 {
+    background: linear-gradient(135deg, #ff6b4a, #ff8c6b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.modal-question {
+    color: #ccc;
+    margin-bottom: 1.5rem;
+}
+
+.platform-slider {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.platform-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: all 0.2s;
+    flex: 1;
+}
+
+.platform-option:hover {
+    background: rgba(255, 107, 74, 0.15);
+    transform: translateY(-3px);
+}
+
+.platform-option.selected {
+    background: rgba(255, 107, 74, 0.25);
+    border: 1px solid #ff6b4a;
+}
+
+.platform-option img {
+    width: 48px;
+    height: 48px;
+    filter: brightness(0) invert(1);
+}
+
+.platform-option span {
+    color: white;
+    font-size: 0.9rem;
+}
+
+.confirm-login-btn {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 40px;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.confirm-login-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+}
+
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
@@ -309,4 +420,8 @@ body {
         gap: 0.5rem;
         text-align: center;
     }
+    .platform-slider {
+        flex-direction: column;
+    }
 }
+
