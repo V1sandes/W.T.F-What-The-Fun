@@ -17,6 +17,25 @@ const games = [
     { id: 16, title: "Ghost of Tsushima", genre: "Экшен", price: 2499, image: "images/ghostoftsushima.jpg", description: "Самурайский экшен в открытом мире. Защитите остров Цусима от монгольского нашествия, используя путь самурая или призрака." }
 ];
 
+const systemRequirements = {
+    1: { os: "Windows 10", processor: "Intel Core i7-6700", ram: "12 GB", gpu: "GTX 1060", storage: "70 GB" },
+    2: { os: "Windows 10", processor: "Intel Core i5-8400", ram: "16 GB", gpu: "GTX 1060", storage: "50 GB" },
+    3: { os: "Windows 7", processor: "Intel Core i5-2300", ram: "8 GB", gpu: "GTX 560", storage: "15 GB" },
+    4: { os: "Windows 10", processor: "Intel Core i5-2500K", ram: "8 GB", gpu: "GTX 970", storage: "80 GB" },
+    5: { os: "Windows 7", processor: "Intel Core i5-2500K", ram: "6 GB", gpu: "GTX 660", storage: "50 GB" },
+    6: { os: "Windows 7", processor: "Intel Core i5-2500K", ram: "4 GB", gpu: "GTX 465", storage: "14 GB" },
+    7: { os: "Windows 10", processor: "Intel Core i5-8400", ram: "12 GB", gpu: "GTX 1060", storage: "60 GB" },
+    8: { os: "Windows 7", processor: "Intel Core i3-2100", ram: "4 GB", gpu: "GTX 460", storage: "2 GB" },
+    9: { os: "Windows 7", processor: "Intel Core i3-2100", ram: "4 GB", gpu: "GTX 460", storage: "15 GB" },
+    10: { os: "Windows 10", processor: "Intel Core i5-8600K", ram: "16 GB", gpu: "GTX 1060", storage: "150 GB" },
+    11: { os: "Windows 10", processor: "Intel Core i5-2500K", ram: "8 GB", gpu: "GTX 660", storage: "60 GB" },
+    12: { os: "Windows 7", processor: "Intel Core i5-2300", ram: "4 GB", gpu: "GTX 560", storage: "9 GB" },
+    13: { os: "Windows 10", processor: "Intel Core i5-2500K", ram: "8 GB", gpu: "GTX 970", storage: "25 GB" },
+    14: { os: "Windows 7", processor: "Intel Core i3-2100", ram: "4 GB", gpu: "GTX 450", storage: "15 GB" },
+    15: { os: "Windows 10", processor: "Intel Core i5-8600K", ram: "16 GB", gpu: "GTX 1070", storage: "125 GB" },
+    16: { os: "Windows 10", processor: "Intel Core i5-2500K", ram: "8 GB", gpu: "GTX 960", storage: "60 GB" }
+};
+
 function initStorage() {
     if (!localStorage.getItem('cart')) localStorage.setItem('cart', JSON.stringify([]));
     if (!localStorage.getItem('library')) localStorage.setItem('library', JSON.stringify([]));
@@ -34,7 +53,7 @@ function addToCart(gameId) {
     const cart = JSON.parse(localStorage.getItem('cart'));
     
     if (library.includes(gameId)) {
-        alert('❌ Эта игра уже есть в вашей библиотеке!');
+        alert('Эта игра уже есть в вашей библиотеке!');
         return;
     }
     
@@ -42,9 +61,9 @@ function addToCart(gameId) {
         cart.push(gameId);
         localStorage.setItem('cart', JSON.stringify(cart));
         updateCartCount();
-        alert('✅ Игра добавлена в корзину');
+        alert('Игра добавлена в корзину');
     } else {
-        alert('⚠️ Игра уже в корзине');
+        alert('Игра уже в корзине');
     }
 }
 
@@ -53,17 +72,17 @@ function addToWishlist(gameId) {
     const wishlist = JSON.parse(localStorage.getItem('wishlist'));
     
     if (library.includes(gameId)) {
-        alert('❌ Эта игра уже есть в вашей библиотеке!');
+        alert('Эта игра уже есть в вашей библиотеке!');
         return;
     }
     
     if (!wishlist.includes(gameId)) {
         wishlist.push(gameId);
         localStorage.setItem('wishlist', JSON.stringify(wishlist));
-        alert('❤️ Добавлено в избранное');
+        alert('❤️Добавлено в избранное');
         if (window.location.pathname.includes('wishlist.html')) renderWishlistPage();
     } else {
-        alert('⚠️ Уже в избранном');
+        alert('Уже в избранном');
     }
 }
 
@@ -80,7 +99,7 @@ function buyGame(gameId) {
     let cart = JSON.parse(localStorage.getItem('cart'));
     
     if (library.includes(gameId)) {
-        alert('❌ Игра уже есть в библиотеке!');
+        alert('Игра уже есть в библиотеке!');
         renderCartPage();
         return;
     }
@@ -92,7 +111,7 @@ function buyGame(gameId) {
     cart = cart.filter(id => id !== gameId);
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartCount();
-    alert('🎉 Игра куплена и добавлена в библиотеку!');
+    alert('Игра куплена и добавлена в библиотеку!');
     if (window.location.pathname.includes('cart.html')) renderCartPage();
     if (window.location.pathname.includes('gamepage.html')) {
         const backLink = document.querySelector('.back-link');
@@ -232,6 +251,7 @@ function renderGameDetail() {
     const game = games.find(g => g.id === gameId);
     const library = JSON.parse(localStorage.getItem('library'));
     const cart = JSON.parse(localStorage.getItem('cart'));
+    const req = systemRequirements[gameId];
     
     if (!game) {
         document.querySelector('.detail-card').innerHTML = '<h2>Игра не найдена</h2>';
@@ -243,6 +263,21 @@ function renderGameDetail() {
     document.getElementById('gameGenre').innerText = '🎮 ' + game.genre;
     document.getElementById('gamePrice').innerText = game.price === 0 ? 'Бесплатно' : game.price + ' ₽';
     
+    const reqContainer = document.getElementById('requirementsContent');
+    if (req && reqContainer) {
+        reqContainer.innerHTML = `
+            <ul>
+                <li><strong>ОС:</strong> ${req.os}</li>
+                <li><strong>Процессор:</strong> ${req.processor}</li>
+                <li><strong>Оперативная память:</strong> ${req.ram}</li>
+                <li><strong>Видеокарта:</strong> ${req.gpu}</li>
+                <li><strong>Место на диске:</strong> ${req.storage}</li>
+            </ul>
+        `;
+    } else if (reqContainer) {
+        reqContainer.innerHTML = '<p>Системные требования не указаны</p>';
+    }
+    
     const addToCartBtn = document.getElementById('addToCartBtn');
     const addToWishlistBtn = document.getElementById('addToWishlistBtn');
     
@@ -250,7 +285,7 @@ function renderGameDetail() {
         addToCartBtn.disabled = true;
         addToCartBtn.style.background = '#555';
         addToCartBtn.style.cursor = 'not-allowed';
-        addToCartBtn.innerText = '❌ Уже в библиотеке';
+        addToCartBtn.innerText = 'Уже в библиотеке';
         addToWishlistBtn.disabled = true;
         addToWishlistBtn.style.background = '#555';
         addToWishlistBtn.style.cursor = 'not-allowed';
@@ -258,7 +293,7 @@ function renderGameDetail() {
         addToCartBtn.disabled = true;
         addToCartBtn.style.background = '#555';
         addToCartBtn.style.cursor = 'not-allowed';
-        addToCartBtn.innerText = '⚠️ Уже в корзине';
+        addToCartBtn.innerText = 'Уже в корзине';
         addToWishlistBtn.disabled = false;
         addToWishlistBtn.style.background = 'linear-gradient(135deg, #ff2d55, #ff6b6b)';
         addToWishlistBtn.onclick = () => addToWishlist(game.id);
@@ -294,12 +329,11 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('cart', JSON.stringify([]));
             updateCartCount();
             renderCartPage();
-            alert('✅ Заказ оформлен! Игры добавлены в библиотеку');
+            alert('Заказ оформлен! Игры добавлены в библиотеку');
         });
     }
     if (document.getElementById('gameDetailContainer')) renderGameDetail();
 
-    // Модальное окно входа
     const modal = document.getElementById('loginModal');
     const loginBtn = document.getElementById('loginBtn');
     const closeModal = document.querySelector('.close-modal');
@@ -340,11 +374,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     'gog': 'GOG',
                     'epic': 'Epic Games'
                 }[selectedPlatform];
-                alert('✅ Вы вошли в аккаунт ' + platformName + '!');
+                alert('Вы вошли в аккаунт ' + platformName + '!');
                 modal.style.display = 'none';
                 if (loginBtn) loginBtn.style.display = 'none';
             } else {
-                alert('⚠️ Выберите платформу для входа');
+                alert('Выберите платформу для входа');
             }
         };
     }
