@@ -79,7 +79,7 @@ function addToWishlist(gameId) {
     if (!wishlist.includes(gameId)) {
         wishlist.push(gameId);
         localStorage.setItem('wishlist', JSON.stringify(wishlist));
-        alert('❤️Добавлено в избранное');
+        alert('Добавлено в избранное');
         if (window.location.pathname.includes('wishlist.html')) renderWishlistPage();
     } else {
         alert('Уже в избранном');
@@ -137,7 +137,7 @@ function renderGamesGrid(containerId, gameList, showButtons = true, showPrice = 
         if (showPrice) html += '<p class="price">' + (g.price === 0 ? 'Бесплатно' : g.price + ' ₽') + '</p>';
         if (showButtons) {
             html += '<div class="button-group">';
-            html += '<button class="add-to-cart-btn" data-id="' + g.id + '">🛒 В корзину</button>';
+            html += '<button class="add-to-cart-btn" data-id="' + g.id + '">В корзину</button>';
             html += '<button class="add-to-wishlist-btn" data-id="' + g.id + '">❤️</button>';
             html += '</div>';
         }
