@@ -5,7 +5,7 @@ const games = [
     { id: 4, title: "Doom", genre: "Экшен", price: 1499, image: "images/Doom.jpeg", description: "Динамичный шутер от первого лица. Уничтожайте орды демонов с помощью мощнейшего арсенала." },
     { id: 5, title: "The Witcher 3", genre: "RPG", price: 1299, image: "images/witcher.jpeg", description: "Открытый мир и охота на чудовищ. Станьте ведьмаком Геральтом и спасите свою приёмную дочь." },
     { id: 6, title: "Dark Souls II", genre: "RPG", price: 9999, image: "images/ds2.jpeg", description: "Суровая ролевая игра с высокой сложностью. Исследуйте мрачный мир Дранглейк и сражайтесь с могущественными боссами." },
-    { id: 7, title: "Elden Ring", genre: "RPG", price: 2999, image: "images/eldnering.jpeg", description: "Грандиозный экшен-RPG от создателей Dark Souls. Исследуйте Междуземье в поисках Элденского кольца." },
+    { id: 7, title: "Elden Ring", genre: "RPG", price: 2999, image: "images/eldenringring.jpeg", description: "Грандиозный экшен-RPG от создателей Dark Souls. Исследуйте Междуземье в поисках Элденского кольца." },
     { id: 8, title: "Весёлая ферма", genre: "Инди", price: 299, image: "images/farm.jpeg", description: "Симулятор фермы с уютной атмосферой. Выращивайте урожай, ухаживайте за животными и общайтесь с соседями." },
     { id: 9, title: "Dota 2", genre: "Стратегия", price: 0, image: "images/Dota 2.jpeg", description: "Легендарная MOBA с миллионами игроков. Бесплатно! Сражайтесь в команде 5х5 и уничтожьте древний трон врага." }
 ];
