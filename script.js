@@ -123,7 +123,7 @@ function renderGamesGrid(containerId, gameList, showButtons = true, showPrice = 
     const container = document.getElementById(containerId);
     if (!container) return;
     if (gameList.length === 0) {
-        container.innerHTML = '<div class="empty-message">🎮 Здесь пока пусто...</div>';
+        container.innerHTML = '<div class="empty-message">Здесь пока пусто...</div>';
         return;
     }
     let html = '';
@@ -212,7 +212,7 @@ function renderCartPage() {
     const library = JSON.parse(localStorage.getItem('library'));
     let total = 0;
     if (cart.length === 0) {
-        container.innerHTML = '<div class="empty-message">🛒 Корзина пуста</div>';
+        container.innerHTML = '<div class="empty-message">Корзина пуста</div>';
         document.getElementById('totalPrice').innerText = '0';
         return;
     }
@@ -260,7 +260,7 @@ function renderGameDetail() {
     document.getElementById('gameTitle').innerText = game.title;
     document.getElementById('gameImage').src = game.image;
     document.getElementById('gameDescription').innerText = game.description;
-    document.getElementById('gameGenre').innerText = '🎮 ' + game.genre;
+    document.getElementById('gameGenre').innerText = ' ' + game.genre;
     document.getElementById('gamePrice').innerText = game.price === 0 ? 'Бесплатно' : game.price + ' ₽';
     
     const reqContainer = document.getElementById('requirementsContent');
@@ -300,7 +300,7 @@ function renderGameDetail() {
     } else {
         addToCartBtn.disabled = false;
         addToCartBtn.style.background = 'linear-gradient(135deg, #ff2d55, #ff6b6b)';
-        addToCartBtn.innerText = '🛒 В корзину';
+        addToCartBtn.innerText = 'В корзину';
         addToCartBtn.onclick = () => addToCart(game.id);
         addToWishlistBtn.disabled = false;
         addToWishlistBtn.style.background = 'linear-gradient(135deg, #ff2d55, #ff6b6b)';
