@@ -42,7 +42,14 @@ function addToCart(gameId) {
 }
 
 function addToWishlist(gameId) {
+    const library = JSON.parse(localStorage.getItem('library'));
     const wishlist = JSON.parse(localStorage.getItem('wishlist'));
+    
+    if (library.includes(gameId)) {
+        alert('❌ Эта игра уже есть в вашей библиотеке!');
+        return;
+    }
+    
     if (!wishlist.includes(gameId)) {
         wishlist.push(gameId);
         localStorage.setItem('wishlist', JSON.stringify(wishlist));
@@ -86,7 +93,7 @@ function buyGame(gameId) {
     }
 }
 
-function renderGamesGrid(containerId, gameList, showButtons = true, showPrice = true) {
+function renderGamesGrid(containerId, gameList, showButtons = true, showPrice = true, showPlayButton = false) {
     const container = document.getElementById(containerId);
     if (!container) return;
     if (gameList.length === 0) {
@@ -108,6 +115,9 @@ function renderGamesGrid(containerId, gameList, showButtons = true, showPrice = 
             html += '<button class="add-to-wishlist-btn" data-id="' + g.id + '">❤️</button>';
             html += '</div>';
         }
+        if (showPlayButton) {
+            html += '<button class="play-btn" data-id="' + g.id + '">🎮 Играть</button>';
+        }
         html += '</div>';
     }
     container.innerHTML = html;
@@ -126,6 +136,17 @@ function renderGamesGrid(containerId, gameList, showButtons = true, showPrice = 
             });
         });
     }
+    
+    if (showPlayButton) {
+        document.querySelectorAll('.play-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const id = btn.dataset.id;
+                window.location.href = 'gamepage.html?id=' + id;
+            });
+        });
+    }
+    
     document.querySelectorAll('.game-card').forEach(card => {
         card.addEventListener('click', (e) => {
             if (e.target.tagName === 'BUTTON') return;
@@ -143,19 +164,19 @@ function renderCatalogPage() {
         const matchesGenre = genre === 'all' || game.genre === genre;
         return matchesSearch && matchesGenre;
     });
-    renderGamesGrid('gamesGrid', filtered, true, true);
+    renderGamesGrid('gamesGrid', filtered, true, true, false);
 }
 
 function renderLibraryPage() {
     const library = JSON.parse(localStorage.getItem('library'));
     const ownedGames = games.filter(g => library.includes(g.id));
-    renderGamesGrid('libraryGrid', ownedGames, false, false);
+    renderGamesGrid('libraryGrid', ownedGames, false, false, true);
 }
 
 function renderWishlistPage() {
     const wishlist = JSON.parse(localStorage.getItem('wishlist'));
     const wishlistGames = games.filter(g => wishlist.includes(g.id));
-    renderGamesGrid('wishlistGrid', wishlistGames, false, true);
+    renderGamesGrid('wishlistGrid', wishlistGames, false, true, false);
 }
 
 function renderCartPage() {
@@ -223,19 +244,26 @@ function renderGameDetail() {
         addToCartBtn.style.background = '#555';
         addToCartBtn.style.cursor = 'not-allowed';
         addToCartBtn.innerText = '❌ Уже в библиотеке';
+        addToWishlistBtn.disabled = true;
+        addToWishlistBtn.style.background = '#555';
+        addToWishlistBtn.style.cursor = 'not-allowed';
     } else if (cart.includes(game.id)) {
         addToCartBtn.disabled = true;
         addToCartBtn.style.background = '#555';
         addToCartBtn.style.cursor = 'not-allowed';
         addToCartBtn.innerText = '⚠️ Уже в корзине';
+        addToWishlistBtn.disabled = false;
+        addToWishlistBtn.style.background = 'linear-gradient(135deg, #ff2d55, #ff6b6b)';
+        addToWishlistBtn.onclick = () => addToWishlist(game.id);
     } else {
         addToCartBtn.disabled = false;
         addToCartBtn.style.background = 'linear-gradient(135deg, #ff2d55, #ff6b6b)';
         addToCartBtn.innerText = '🛒 В корзину';
         addToCartBtn.onclick = () => addToCart(game.id);
+        addToWishlistBtn.disabled = false;
+        addToWishlistBtn.style.background = 'linear-gradient(135deg, #ff2d55, #ff6b6b)';
+        addToWishlistBtn.onclick = () => addToWishlist(game.id);
     }
-    
-    addToWishlistBtn.onclick = () => addToWishlist(game.id);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
